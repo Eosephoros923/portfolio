@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>作品详情 · 郭映彤作品集</title>
+  <meta name="description" content="郭映彤新媒体运营作品集 · 作品详情页" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css?v=15" />
+</head>
+<body class="detail-body">
+
+  <header class="detail-head">
+    <a class="back-link" href="index.html#works">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      返回作品目录
+    </a>
+    <div class="detail-head-meta">
+      <span class="meta-en" id="headIndex"></span>
+      <span class="meta-dot"></span>
+      <span class="meta-cn" id="headCategory"></span>
+    </div>
+  </header>
+
+  <main class="detail-layout" id="detailLayout">
+    <aside class="detail-info" id="detailInfo">
+      <div class="detail-info-inner">
+        <p class="detail-eyebrow">CASE STUDY · 作品详情</p>
+        <h1 id="detailTitle"></h1>
+        <p class="detail-en" id="detailEn"></p>
+        <p class="detail-brief" id="detailBrief"></p>
+        <dl class="detail-meta">
+          <div><dt>年份</dt><dd id="detailYear"></dd></div>
+          <div><dt>客户 / 项目</dt><dd id="detailClient"></dd></div>
+          <div><dt>角色</dt><dd id="detailRole"></dd></div>
+          <div><dt>平台</dt><dd id="detailPlatform"></dd></div>
+          <div><dt>数据</dt><dd id="detailMetrics"></dd></div>
+        </dl>
+        <div class="detail-long" id="detailLong"></div>
+        <div class="detail-links" id="detailLinks"></div>
+        <p class="detail-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          滚动滚轮 · 横向浏览
+        </p>
+      </div>
+    </aside>
+
+    <div class="detail-gallery" id="gallery" aria-label="作品图集"></div>
+  </main>
+
+  <div class="gallery-links" id="galleryLinks" hidden></div>
+
+  <div class="detail-progress" aria-hidden="true">
+    <span id="detailProgressBar"></span>
+  </div>
+
+  <footer class="detail-footer">
+    <span>GUO YINGTONG · PORTFOLIO 2026</span>
+    <span id="footerTitle"></span>
+  </footer>
+
+  <script src="js/works-data.js?v=15"></script>
+  <script>
+    /* 兜底渲染：即便 detail.js 未加载，左侧文字介绍也始终可见 */
+    (function () {
+      var list = window.PORTFOLIO_WORKS;
+      var map = window.PORTFOLIO_WORK_MAP;
+      if (!list || !map || !list.length) return;
+      var id = new URLSearchParams(window.location.search).get("id");
+      var work = map[id] || list[0];
+      if (!work) return;
+      function set(id, v) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = v;
+      }
+      set("headIndex", work.index + " / " + String(list.length).padStart(2, "0"));
+      set("headCategory", work.category);
+      set("detailTitle", work.title);
+      set("detailEn", work.en);
+      set("detailBrief", work.brief);
+      set("detailYear", work.year);
+      set("detailClient", work.client);
+      set("detailRole", work.role);
+      set("detailPlatform", work.platform);
+      set("detailMetrics", work.metrics);
+      set("detailLong", work.longDesc);
+      set("footerTitle", work.en);
+      document.title = work.title + " · 郭映彤作品集";
+    })();
+  </script>
+  <script src="js/detail.js?v=15"></script>
+</body>
+</html>
